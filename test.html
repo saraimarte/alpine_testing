@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--https://alpinejs.dev/start-here#building-a-counter-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel = "stylesheet" type = "text/css" href = "style.css">
+</head>
+<body>
+    <h1> Learning Alpine</h1>
+
+
+    <div class = "box"> 
+       
+     <h1 x-data="{message:'hello world'}" x-text = "message"></h1>
+
+    </div>
+
+    <div class = "box" x-data = "{count:0}"> 
+        <button x-on:click="count++"> Incremenet</button>
+        <span x-text="count"></span>
+    </div>
+
+    <div class = "box" x-data="{showBoxContent:false}">
+        <button x-on:click  = "showBoxContent=!showBoxContent">Toggle</button>
+        <h1 x-show="showBoxContent" @click.outside = "open = false">Contents...</h1>
+
+    </div>
+
+    <div class = "box"
+        x-data = "{
+            search: '', 
+            items: ['foo', 'bar', 'baz'],
+            get filteredItems(){
+                return this.items.filter(i=> i.startsWith(this.search))
+
+            } }" 
+    > 
+            <input x-model = "search" placeholder="Search...">
+            <ul>
+                <template x-for = "item in filteredItems" :key = "item">
+                    <li x-text = "item"></li>
+                </template>
+            </ul>
+
+    </div>
+</body>
+</html>
+
+<!--
+    x-data takes JS Object as it's value.
+    x-text tells HTML that you want the message to be displayed as text.
+    x-show tells HTML that it will only show the contents of a div
+           if and only if the variable is true. It will not show if the variable
+           if false which is what it is by default.
+    Rule: x-show has to be true (or empty string) in order for it 
+    to show the content BUT it has to be the opposite of false so that not only
+    does it show the content but its able to hide the content again.
+    x-model tells HTML to model another value. You want a value to be the same as another. 
+    In this case we want the search variable to be the same as the input value.
+
+    
+-->
